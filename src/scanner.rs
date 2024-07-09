@@ -96,11 +96,10 @@ mod tests {
     fn test_skip_ws() {
         let source = "skip<          >";
         let mut scanner = Scanner::new(source.to_string());
-        let mut ch = scanner.advance();
-        while is_alpha(ch) {
-            ch = scanner.advance();
+        while is_alpha(scanner.peek()) {
+            scanner.advance();
         }
-        assert_eq!(ch, '<');
+        assert_eq!(scanner.advance(), '<');
         scanner.skip_whitespace();
         assert_eq!(scanner.source[scanner.current], '>');
     }
